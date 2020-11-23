@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import firebase from "firebase";
@@ -12,22 +14,42 @@ import db from "../../firebase";
 
 //-- Style
 import "./chat.scss";
+import FileModal from "../modal/FileModal";
 
 const Chat = () => {
   const [{ user }, dispatch] = useStateValue();
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [roomName, setRoomName] = useState("");
+  const [uploadState, setUploadState] = useState(null);
+  const [uploadPercentage, setUploadPercentage] = useState(null);
+
+  const [fileUrl, setURL] = useState(null);
+  const [modal, setModal] = useState(false);
   const { roomId } = useParams();
 
-  const sendMessage = (ev) => {
-    ev.preventDefault();
-
-    db.collection("rooms").doc(roomId).collection("messages").add({
-      message: newMessage,
+  const createMessage = () => {
+    const message = {
       name: user.displayName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    };
+
+    if (fileUrl !== null) {
+      message["image"] = fileUrl;
+      setURL(null);
+    } else {
+      message["message"] = newMessage;
+    }
+    return message;
+  };
+
+  const sendMessage = (ev) => {
+    if (ev) {
+      ev.preventDefault();
+    }
+    const message = createMessage();
+
+    db.collection("rooms").doc(roomId).collection("messages").add(message);
     setNewMessage("");
   };
 
@@ -42,10 +64,39 @@ const Chat = () => {
         .collection("messages")
         .orderBy("timestamp", "asc")
         .onSnapshot((snapShot) =>
-          setMessages(snapShot.docs.map((doc) => doc.data()))
+          setMessages((prevState) => snapShot.docs.map((doc) => doc.data()))
         );
     }
   }, [roomId]);
+
+  const openModal = (value) => setModal(value);
+  const closeModal = (value) => setModal(false);
+
+  const handleUpload = (file, metaData) => {
+    const uploadTask = firebase.storage().ref(`/images/${file.name}`).put(file);
+    uploadTask.on("state_changed", console.log, console.error, () => {
+      firebase
+        .storage()
+        .ref("images")
+        .child(file.name)
+        .getDownloadURL()
+        .then((url) => {
+          setURL(url);
+        });
+    });
+  };
+
+  useEffect(() => {
+    if (fileUrl !== null) {
+      sendMessage();
+    }
+  }, [fileUrl]);
+
+  const isImage = (message) => {
+    return (
+      message.hasOwnProperty("image") && !message.hasOwnProperty("message")
+    );
+  };
 
   return (
     <div className="chatWindow">
@@ -62,6 +113,7 @@ const Chat = () => {
         </div>
         <div className="chatWindow__headerRight"></div>
       </div>
+
       <div className="chatWindow__body">
         {messages.length > 0 &&
           messages.map((msg) => (
@@ -71,13 +123,18 @@ const Chat = () => {
               }`}
             >
               <span className="chat__name">{msg.name}</span>
-              {msg.message}
+              {isImage(msg) ? (
+                <img src={msg.image} alt="an image" />
+              ) : (
+                msg.message
+              )}
               <span className="chat__timestamp">
                 {new Date(msg.timestamp?.toDate()).toUTCString()}
               </span>
             </div>
           ))}
       </div>
+
       <div className="chatWindow__footer">
         <IconButton icon="icon-logout" />
         <form action="/">
@@ -91,8 +148,14 @@ const Chat = () => {
             Send message
           </button>
         </form>
-        <IconButton icon="icon-logout" />
+        <IconButton icon="icon-logout" onClick={() => openModal(!modal)} />
       </div>
+
+      <FileModal
+        closeModal={closeModal}
+        modal={modal}
+        uploadFile={handleUpload}
+      />
     </div>
   );
 };

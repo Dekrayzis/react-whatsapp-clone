@@ -7,6 +7,14 @@ import db from "../../firebase";
 const ChatLink = ({ id, name }) => {
   const [messages, setMessages] = useState([]);
 
+  const truncateString = (str, num) => {
+    if (!str) return;
+    if (str.length <= num) {
+      return str;
+    }
+    return `${str.slice(0, num)}...`;
+  };
+
   useEffect(() => {
     if (id) {
       db.collection("rooms")
@@ -25,7 +33,9 @@ const ChatLink = ({ id, name }) => {
         <Avatar avatar="https://avatars.dicebear.com/api/human/vincent.svg" />
         <div className="chat_info_details">
           <h2 className="chat_info_details_name">{name}</h2>
-          <p className="chat_info_details_msg">{messages[0]?.message}</p>
+          <p className="chat_info_details_msg">
+            {truncateString(messages[0]?.message, 20)}
+          </p>
         </div>
 
         <div className="chat_info_notifies">
