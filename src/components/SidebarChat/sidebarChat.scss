@@ -1,0 +1,45 @@
+.sidebarChat {
+  padding: 0 1rem;
+  overflow-y: scroll;
+  flex: 1;
+
+  .sidebarChat__header {
+    margin-bottom: 1rem;
+
+    .sidebarChat__header_title {
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .chat_info {
+      display: grid;
+      grid-template-columns: 1fr 5fr 1.6fr;
+
+      .chat_info_details {
+        margin-left: 1rem;
+        padding-top: 0.2rem;
+
+        .chat_info_details_name {
+          font-size: 0.95rem;
+          font-weight: 400;
+        }
+
+        .chat_info_details_msg {
+          font-weight: 300;
+          color: lightgrey;
+        }
+      }
+
+      .chat_info_notifies {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .timestamp {
+          color: lightgrey;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

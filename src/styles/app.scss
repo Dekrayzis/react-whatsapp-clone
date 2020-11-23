@@ -1,3 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700&display=swap");
+@font-face {
+  font-family: "Suisse Int'l";
+  src: url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.eot");
+  src: url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/03d5b20d124cd26dc873bd4a8e42313e.svg#Suisse Int'l")
+      format("svg");
+}
+
+* {
+  font-family: "Suisse Int'l";
+}
+
 .app {
   background-color: #ececec;
   display: grid;
