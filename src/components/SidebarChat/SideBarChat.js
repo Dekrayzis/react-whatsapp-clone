@@ -34,7 +34,7 @@ const SideBarChat = () => {
     <div className="sidebarChat">
       <div className="sidebarChat__header">
         <div className="sidebarChat__header_title" onClick={createChat}>
-          CHATS (5)
+          CHATS ({currentChats.length})
         </div>
         {currentChats.map((chat) => (
           <ChatLink key={chat.id} id={chat.id} name={chat.data.name} />
