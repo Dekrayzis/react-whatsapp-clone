@@ -1,16 +1,20 @@
 import React from "react";
-import "./sidebar.scss";
 import Avatar from "../Avatar/Avatar";
 import IconButton from "./../buttons/IconButton";
 import SearchField from "../SearchField/SearchField";
 import SideBarChat from "../SidebarChat/SideBarChat";
+import { useStateValue } from "./../../StateProvider";
+
+import "./sidebar.scss";
 
 const SideBar = () => {
+  const [{ user }, dispatch] = useStateValue();
+
   return (
     <aside className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__header_left">
-          <Avatar avatar="http://placehold.it/40x40" />
+          <Avatar avatar={user.photoURL} />
           <span className="appTitle">CChat</span>
         </div>
         <div className="sidebar__header_right">
@@ -20,6 +24,7 @@ const SideBar = () => {
       <div className="sidebar__search">
         <SearchField />
       </div>
+
       <SideBarChat />
     </aside>
   );
