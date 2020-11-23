@@ -2,6 +2,7 @@
   flex: 0.75;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   .chatWindow__header {
     border-bottom: 1px solid lightgrey;
@@ -71,6 +72,7 @@
     align-items: center;
     height: 62px;
     border-top: 1px solid lightgray;
+    padding: 0 1rem;
 
     > form {
       flex: 1;

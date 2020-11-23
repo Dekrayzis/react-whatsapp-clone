@@ -69,8 +69,11 @@ const Chat = () => {
     }
   }, [roomId]);
 
-  const openModal = (value) => setModal(value);
-  const closeModal = (value) => setModal(false);
+  const openModal = () => setModal((prev) => !modal);
+  const closeModal = () => {
+    console.log("closed" + modal);
+    setModal(!modal);
+  };
 
   const handleUpload = (file, metaData) => {
     const uploadTask = firebase.storage().ref(`/images/${file.name}`).put(file);
@@ -99,64 +102,65 @@ const Chat = () => {
   };
 
   return (
-    <div className="chatWindow">
-      <div className="chatWindow__header">
-        <Avatar avatar="http://placehold.it/40x40" />
-        <div className="chatWindow__header_info">
-          <h3>{roomName}</h3>
-          <p>
-            Last message...
-            {new Date(
-              messages[messages.length - 1]?.timestamp?.toDate()
-            ).toUTCString()}
-          </p>
+    <>
+      <div className="chatWindow">
+        <div className="chatWindow__header">
+          <Avatar avatar="http://placehold.it/40x40" />
+          <div className="chatWindow__header_info">
+            <h3>{roomName}</h3>
+            <p>
+              Last message...
+              {new Date(
+                messages[messages.length - 1]?.timestamp?.toDate()
+              ).toUTCString()}
+            </p>
+          </div>
+          <div className="chatWindow__headerRight"></div>
         </div>
-        <div className="chatWindow__headerRight"></div>
-      </div>
 
-      <div className="chatWindow__body">
-        {messages.length > 0 &&
-          messages.map((msg) => (
-            <div
-              className={`chat__message ${
-                msg.name === user.displayName && "chat__receiver"
-              }`}
-            >
-              <span className="chat__name">{msg.name}</span>
-              {isImage(msg) ? (
-                <img src={msg.image} alt="an image" />
-              ) : (
-                msg.message
-              )}
-              <span className="chat__timestamp">
-                {new Date(msg.timestamp?.toDate()).toUTCString()}
-              </span>
-            </div>
-          ))}
-      </div>
+        <div className="chatWindow__body">
+          {messages.length > 0 &&
+            messages.map((msg) => (
+              <div
+                className={`chat__message ${
+                  msg.name === user.displayName && "chat__receiver"
+                }`}
+              >
+                <span className="chat__name">{msg.name}</span>
+                {isImage(msg) ? (
+                  <img src={msg.image} alt="an image" />
+                ) : (
+                  msg.message
+                )}
+                <span className="chat__timestamp">
+                  {new Date(msg.timestamp?.toDate()).toUTCString()}
+                </span>
+              </div>
+            ))}
+        </div>
 
-      <div className="chatWindow__footer">
-        <IconButton icon="icon-logout" />
-        <form action="/">
-          <input
-            type="text"
-            placeholder="Type a message"
-            onChange={(e) => setNewMessage(e.target.value)}
-            value={newMessage}
+        <div className="chatWindow__footer">
+          <IconButton icon="icon-emo-happy" />
+          <form action="/">
+            <input
+              type="text"
+              placeholder="Type a message"
+              onChange={(e) => setNewMessage(e.target.value)}
+              value={newMessage}
+            />
+            <button type="submit" onClick={sendMessage}>
+              Send message
+            </button>
+          </form>
+          <IconButton icon="icon-attach" onClick={() => openModal(!modal)} />
+          <FileModal
+            closeModal={closeModal}
+            modal={modal}
+            uploadFile={handleUpload}
           />
-          <button type="submit" onClick={sendMessage}>
-            Send message
-          </button>
-        </form>
-        <IconButton icon="icon-logout" onClick={() => openModal(!modal)} />
+        </div>
       </div>
-
-      <FileModal
-        closeModal={closeModal}
-        modal={modal}
-        uploadFile={handleUpload}
-      />
-    </div>
+    </>
   );
 };
 
