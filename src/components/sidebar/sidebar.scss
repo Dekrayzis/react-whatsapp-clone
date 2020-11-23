@@ -12,16 +12,15 @@
     .sidebar__header_left,
     .sidebar__header_right {
       display: flex;
+      align-items: center;
+    }
+
+    .appTitle {
+      margin-left: 1rem;
     }
 
     .sidebar__header_right {
       justify-content: space-between;
     }
-  }
-
-  .sidebar__search {
-  }
-
-  .sidebar__chats {
   }
 }
