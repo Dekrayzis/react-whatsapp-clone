@@ -1,0 +1,11 @@
+.btn {
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  color: darken(lightgrey, 20);
+
+  .label {
+    margin-right: 0.5rem;
+  }
+}

@@ -1,0 +1,27 @@
+.sidebar {
+  border-right: 1px solid rgb(228, 228, 228);
+  display: flex;
+  flex-direction: column;
+  flex: 0.25;
+
+  .sidebar__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    .sidebar__header_left,
+    .sidebar__header_right {
+      display: flex;
+    }
+
+    .sidebar__header_right {
+      justify-content: space-between;
+    }
+  }
+
+  .sidebar__search {
+  }
+
+  .sidebar__chats {
+  }
+}
