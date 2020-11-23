@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import App from "./App";
+import { StateProvider } from "./StateProvider";
+import reducer, { initialState } from "./store/Reducer";
 
 //-- styles
 import "./index.css";
@@ -9,7 +12,11 @@ import "./fontello/css/fontello.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
