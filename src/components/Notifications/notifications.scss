@@ -1,19 +1,18 @@
+$accent-green: #00a884;
+
 .notif_badge {
-  position: absolute;
-  display: inline-block;
-  color: #fff;
+  display: inline-flex;
 
   .badge-notification {
-    background-color: #40c271;
-    border-radius: 1em;
-    font-size: 12px;
-    height: 22px;
-    line-height: 18px;
-    min-width: 8px;
-    padding: 2px 8px 0 8px;
-    position: absolute;
-    top: -10px;
-    width: 8px;
-    left: 50px;
+    background-color: $accent-green;
+    border-radius: 12px;
+    font-size: 11px;
+    height: 20px;
+    line-height: 20px;
+    min-width: 20px;
+    padding: 0 6px;
+    text-align: center;
+    font-weight: 600;
+    color: #111b21;
   }
 }

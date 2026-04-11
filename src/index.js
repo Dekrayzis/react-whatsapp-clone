@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
@@ -10,15 +10,15 @@ import reducer, { initialState } from "./store/Reducer";
 import "./index.css";
 import "./fontello/css/fontello.css";
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <StateProvider initialState={initialState} reducer={reducer}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </StateProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

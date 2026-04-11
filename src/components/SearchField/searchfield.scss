@@ -1,12 +1,39 @@
-.form-group {
-  padding: 1rem;
-  width: 86%;
+$bg-input: var(--bg-input);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
 
-  input {
-    width: 100%;
-    border: none;
-    padding: 0.6rem;
-    border-radius: 6px;
-    outline: none;
+.form-group {
+  padding: 8px 12px;
+  flex: 1;
+
+  .form-group__wrapper {
+    display: flex;
+    align-items: center;
+    background-color: $bg-input;
+    border-radius: 8px;
+    padding: 0 12px;
+
+    .form-group__icon {
+      color: $text-secondary;
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      padding: 8px 0;
+      outline: none;
+      background-color: transparent;
+      color: $text-primary;
+      font-size: 0.85rem;
+      font-family: inherit;
+
+      &::placeholder {
+        color: $text-secondary;
+      }
+    }
   }
 }

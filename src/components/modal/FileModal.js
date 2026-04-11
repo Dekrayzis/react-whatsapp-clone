@@ -1,5 +1,17 @@
 import React, { useState } from "react";
-import mime from "mime-types";
+import "./filemodal.scss";
+
+const mimeTypes = {
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  png: "image/png",
+  gif: "image/gif",
+};
+
+const lookupMime = (filename) => {
+  const ext = filename.split(".").pop().toLowerCase();
+  return mimeTypes[ext] || "application/octet-stream";
+};
 
 const FileModal = ({ modal, closeModal, uploadFile }) => {
   const [file, setFile] = useState(null);
@@ -16,7 +28,7 @@ const FileModal = ({ modal, closeModal, uploadFile }) => {
     if (file !== null) {
       if (isAuthorized(file.name)) {
         const metaData = {
-          contentType: mime.lookup(file.name),
+          contentType: lookupMime(file.name),
         };
         uploadFile(file, metaData);
         closeModal();
@@ -25,15 +37,36 @@ const FileModal = ({ modal, closeModal, uploadFile }) => {
     }
   };
 
-  const isAuthorized = (filename) => authorized.includes(mime.lookup(filename));
+  const isAuthorized = (filename) => authorized.includes(lookupMime(filename));
 
   return (
-    <div className="modal__window">
-      <label>File types: jpg, png, gif</label>
-      <input type="file" onChange={addFile} />
-      <div className="modal__footer">
-        <button onClick={sendFile}>Upload</button>
-        <button onClick={closeModal}>Close</button>
+    <div className="modal__overlay" onClick={closeModal}>
+      <div className="modal__window" onClick={(e) => e.stopPropagation()}>
+        <div className="modal__header">
+          <h3>Upload Image</h3>
+          <button className="modal__close" onClick={closeModal}>
+            ✕
+          </button>
+        </div>
+        <div className="modal__body">
+          <p className="modal__hint">Supported: JPG, PNG, GIF</p>
+          <label className="modal__file-input">
+            <input type="file" onChange={addFile} accept="image/*" />
+            <span>{file ? file.name : "Choose file..."}</span>
+          </label>
+        </div>
+        <div className="modal__footer">
+          <button className="modal__btn modal__btn--cancel" onClick={closeModal}>
+            Cancel
+          </button>
+          <button
+            className="modal__btn modal__btn--upload"
+            onClick={sendFile}
+            disabled={!file}
+          >
+            Upload
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,66 @@
+$bg-picker: var(--bg-input);
+$border-color: var(--border-color);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$bg-hover: var(--bg-hover);
+
+.emojiPicker {
+  position: absolute;
+  bottom: 62px;
+  left: 12px;
+  width: 340px;
+  max-height: 320px;
+  background-color: $bg-picker;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  z-index: 40;
+  overflow: hidden;
+  animation: slideUp 0.2s ease-out;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .emojiPicker__header {
+    padding: 10px 14px;
+    color: $text-secondary;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .emojiPicker__grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+    padding: 8px;
+    overflow-y: auto;
+    max-height: 260px;
+
+    .emojiPicker__emoji {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      padding: 6px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: $bg-hover;
+      }
+    }
+  }
+}

@@ -1,0 +1,218 @@
+$bg-panel: var(--bg-panel);
+$bg-header-panel: var(--bg-header-panel);
+$bg-hover: var(--bg-hover);
+$bg-input: var(--bg-input);
+$border-color: var(--border-color);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$accent-green: var(--accent-green);
+
+.cropModal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .cropModal__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .cropModal__content {
+    position: relative;
+    background-color: $bg-panel;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 168, 132, 0.15);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-width: 500px;
+    width: 90vw;
+    animation: cropModalIn 0.2s ease-out;
+
+    @keyframes cropModalIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  .cropModal__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background-color: $bg-header-panel;
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      color: $text-primary;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .cropModal__closeBtn {
+      background: none;
+      border: none;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.15s ease;
+
+      &:hover {
+        color: $text-primary;
+        background-color: rgba(134, 150, 160, 0.1);
+      }
+    }
+  }
+
+  .cropModal__canvasWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    cursor: grab;
+    position: relative;
+    background-color: var(--bg-primary);
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    .cropModal__canvas {
+      border-radius: 4px;
+      max-width: 100%;
+      display: block;
+    }
+
+    .cropModal__loading {
+      position: absolute;
+      color: $text-secondary;
+      font-size: 0.85rem;
+    }
+  }
+
+  .cropModal__controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background-color: $bg-header-panel;
+    border-top: 1px solid $border-color;
+
+    .cropModal__slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: $bg-input;
+      border-radius: 2px;
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $accent-green;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.15s ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+
+      &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $accent-green;
+        cursor: pointer;
+        border: none;
+      }
+    }
+
+    .cropModal__toolBtn {
+      background: none;
+      border: none;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      transition: all 0.15s ease;
+
+      &:hover {
+        color: $accent-green;
+        background-color: rgba(0, 168, 132, 0.1);
+      }
+    }
+  }
+
+  .cropModal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 14px 18px;
+    border-top: 1px solid $border-color;
+
+    .cropModal__cancelBtn {
+      background: none;
+      border: 1px solid $border-color;
+      color: $text-secondary;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+
+      &:hover {
+        color: $text-primary;
+        border-color: $text-secondary;
+      }
+    }
+
+    .cropModal__confirmBtn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: $accent-green;
+      border: none;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: #009975;
+        box-shadow: 0 2px 12px rgba(0, 168, 132, 0.3);
+      }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

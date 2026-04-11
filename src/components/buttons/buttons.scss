@@ -1,11 +1,28 @@
+$text-secondary: #8696a0;
+$accent-green: #00a884;
+
 .btn {
   border: 0;
   background-color: transparent;
   box-shadow: none;
   outline: none;
-  color: darken(lightgrey, 20);
+  color: $text-secondary;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+
+  &:hover {
+    color: $accent-green;
+    background-color: rgba(134, 150, 160, 0.1);
+  }
 
   .label {
-    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    margin-right: 0.3rem;
   }
 }

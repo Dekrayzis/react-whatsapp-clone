@@ -3,7 +3,7 @@ import "./sidebarChat.scss";
 import ChatLink from "./ChatLink";
 import db from "../../firebase";
 
-const SideBarChat = () => {
+const SideBarChat = ({ searchTerm = "", filterUnread = false }) => {
   const [currentChats, setChats] = useState([]);
 
   useEffect(() => {
@@ -30,16 +30,40 @@ const SideBarChat = () => {
     }
   };
 
+  // Filter chats by search term and archived status
+  const filteredChats = currentChats
+    .filter((chat) => !chat.data.archived) // Hide archived rooms
+    .filter((chat) =>
+      chat.data.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
   return (
     <div className="sidebarChat">
-      <div className="sidebarChat__header">
-        <div className="sidebarChat__header_title" onClick={createChat}>
-          CHATS ({currentChats.length})
-        </div>
-        {currentChats.map((chat) => (
-          <ChatLink key={chat.id} id={chat.id} name={chat.data.name} />
-        ))}
+      <div
+        className="sidebarChat__addRoom"
+        onClick={createChat}
+        role="button"
+        tabIndex={0}
+      >
+        <span className="sidebarChat__addRoom_icon">+</span>
+        <span>Add new chat</span>
       </div>
+      {filteredChats.length > 0 ? (
+        filteredChats.map((chat) => (
+          <ChatLink
+            key={chat.id}
+            id={chat.id}
+            name={chat.data.name}
+            filterUnread={filterUnread}
+          />
+        ))
+      ) : (
+        <div className="sidebarChat__empty">
+          {searchTerm
+            ? `No chats matching "${searchTerm}"`
+            : "No chats yet. Create one!"}
+        </div>
+      )}
     </div>
   );
 };

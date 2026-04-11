@@ -1,28 +1,82 @@
+$bg-primary: var(--bg-primary);
+$bg-secondary: var(--bg-secondary);
+$bg-input: var(--bg-input);
+$bg-hover: var(--bg-hover);
+$border-color: var(--border-color);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$accent-green: var(--accent-green);
+
 .login {
-  background-color: #f8f8f8;
+  background: radial-gradient(
+      ellipse at 30% 20%,
+      rgba(0, 168, 132, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 80%,
+      rgba(0, 168, 132, 0.06) 0%,
+      transparent 50%
+    ),
+    $bg-primary;
   height: 100vh;
   width: 100vw;
   display: grid;
-  place-items: ceil($number: 0);
+  place-items: center;
+  position: relative;
+  z-index: 2;
 
   .login__container {
-    padding: 100px;
+    padding: 60px 80px;
     text-align: center;
-    background-color: white;
-    box-shadow: -1px 4px 20px 6px rgba(0, 0, 0, 0.15);
-    border-radius: 1rem;
+    background: rgba(17, 27, 33, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 168, 132, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(0, 168, 132, 0.06);
+    border-radius: 16px;
 
     > img {
       object-fit: contain;
       height: 100px;
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 20px rgba(0, 168, 132, 0.3));
+    }
+
+    .login__text {
+      color: $text-primary;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.5px;
     }
 
     > button {
-      margin-top: 5rem;
-      text-transform: inherit;
-      background-color: #40c271;
+      padding: 14px 40px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: none;
+      background: linear-gradient(
+        135deg,
+        #00a884 0%,
+        #006d5b 100%
+      );
       color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 168, 132, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
     }
   }
 }
